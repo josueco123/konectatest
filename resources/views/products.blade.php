@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-end mb-2 mt-2">
-        <a class='btn btn-primary' href="{{ route('saveproduct') }}" role='button'> Agregar Producto </a>
+        <a class='btn btn-primary me-2' href="{{ route('saveproduct') }}" role='button'> Agregar Producto </a>
+        <button type="button" class='btn btn-success evt-modal' data-bs-toggle="modal" data-bs-target="#sellModal" role='button'> Vender Producto </a>
     </div>
     @if (session('status'))
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
@@ -34,32 +35,36 @@
 
 
     
-    
+<div class="modal fade" id="sellModal" tabindex="-1" aria-labelledby="sellModallLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="sellModallLabel">Vender Producto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form  method="POST" action="{{ route('savesell') }}">
+        @csrf  
+          <div class="mb-3">
+            <label for="product_id" class="col-form-label">Selecionar Producto:</label>
+            <select class="form-select" id="product_id" name="product_id">
+                
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="amount" class="col-form-label">Cantidad:</label>
+            <input type="number" class="form-control" id="amount" name="amount">
+          </div>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary evt-guardar">Guardar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div> 
 </div>
-<script>
-        $(document).ready(function() {
-            console.log(window.location.origin )
-            $('#productsTable').DataTable({
-                "bLengthChange": false,
-                ajax: {
-                    url: window.location.origin +  '/api/getproducts', 
-                    dataSrc: 'products' 
-                },
-                columns: [
-                    { data: 'name' }, 
-                    { data: 'reference' },
-                    { data: 'category' }, 
-                    { data: 'price' }, 
-                    { data: 'weight' }, 
-                    { data: 'stock' }, 
-                    { "defaultContent": true,render: function ( data, type, row ) {
-                        return "<a class='btn btn-success btn-sm' href='#' role='button'>Vender </a> " + 
-                        " <a class='btn btn-primary btn-sm' role='button' href='{{ url('editproduct/') }}/"+ row["id"] + "'> Editar </a> " +
-                        " <a href='{{ url('deletproduct/') }}/"+ row["id"] + "' role='button' class='btn btn-danger btn-sm'  data-confirm-delete='true'>Eliminar </a>";
-             
-                    } }
-                ]
-            });
-        });
-    </script>
+<script src="{{ asset('js/main.js')}}"></script>
 @endsection

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SellController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/getproducts', [ProductController::class, 'getAll']);
+Route::get('/getsells', [SellController::class, 'index']);

@@ -1,0 +1,596 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.1
+-- Dumped by pg_dump version 15.1
+
+-- Started on 2024-02-19 21:00:12
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 220 (class 1259 OID 17259)
+-- Name: failed_jobs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.failed_jobs (
+    id bigint NOT NULL,
+    uuid character varying(255) NOT NULL,
+    connection text NOT NULL,
+    queue text NOT NULL,
+    payload text NOT NULL,
+    exception text NOT NULL,
+    failed_at timestamp(0) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE public.failed_jobs OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 17258)
+-- Name: failed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.failed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.failed_jobs_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3391 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: failed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 17234)
+-- Name: migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.migrations (
+    id integer NOT NULL,
+    migration character varying(255) NOT NULL,
+    batch integer NOT NULL
+);
+
+
+ALTER TABLE public.migrations OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 17233)
+-- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.migrations_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3392 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.migrations_id_seq OWNED BY public.migrations.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 17251)
+-- Name: password_reset_tokens; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.password_reset_tokens (
+    email character varying(255) NOT NULL,
+    token character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.password_reset_tokens OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 17271)
+-- Name: personal_access_tokens; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.personal_access_tokens (
+    id bigint NOT NULL,
+    tokenable_type character varying(255) NOT NULL,
+    tokenable_id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    token character varying(64) NOT NULL,
+    abilities text,
+    last_used_at timestamp(0) without time zone,
+    expires_at timestamp(0) without time zone,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.personal_access_tokens OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 17270)
+-- Name: personal_access_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.personal_access_tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.personal_access_tokens_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3393 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: personal_access_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.personal_access_tokens_id_seq OWNED BY public.personal_access_tokens.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 17283)
+-- Name: products; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.products (
+    id bigint NOT NULL,
+    name character varying(50) NOT NULL,
+    reference character varying(100) NOT NULL,
+    price integer NOT NULL,
+    weight integer NOT NULL,
+    category character varying(100) NOT NULL,
+    stock integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    deleted_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.products OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 17282)
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.products_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3394 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 17290)
+-- Name: sells; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sells (
+    id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    amount integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    deleted_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.sells OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 17289)
+-- Name: sells_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.sells_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sells_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3395 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: sells_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.sells_id_seq OWNED BY public.sells.id;
+
+
+--
+-- TOC entry 217 (class 1259 OID 17241)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    email_verified_at timestamp(0) without time zone,
+    password character varying(255) NOT NULL,
+    remember_token character varying(100),
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 17240)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3396 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- TOC entry 3204 (class 2604 OID 17262)
+-- Name: failed_jobs id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.failed_jobs_id_seq'::regclass);
+
+
+--
+-- TOC entry 3202 (class 2604 OID 17237)
+-- Name: migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);
+
+
+--
+-- TOC entry 3206 (class 2604 OID 17274)
+-- Name: personal_access_tokens id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personal_access_tokens ALTER COLUMN id SET DEFAULT nextval('public.personal_access_tokens_id_seq'::regclass);
+
+
+--
+-- TOC entry 3207 (class 2604 OID 17286)
+-- Name: products id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
+
+
+--
+-- TOC entry 3208 (class 2604 OID 17293)
+-- Name: sells id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sells ALTER COLUMN id SET DEFAULT nextval('public.sells_id_seq'::regclass);
+
+
+--
+-- TOC entry 3203 (class 2604 OID 17244)
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- TOC entry 3379 (class 0 OID 17259)
+-- Dependencies: 220
+-- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3374 (class 0 OID 17234)
+-- Dependencies: 215
+-- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.migrations (id, migration, batch) FROM stdin;
+1	2014_10_12_000000_create_users_table	1
+2	2014_10_12_100000_create_password_reset_tokens_table	1
+3	2019_08_19_000000_create_failed_jobs_table	1
+4	2019_12_14_000001_create_personal_access_tokens_table	1
+5	2024_02_19_161503_create_products_table	1
+6	2024_02_19_162637_create_sells_table	1
+\.
+
+
+--
+-- TOC entry 3377 (class 0 OID 17251)
+-- Dependencies: 218
+-- Data for Name: password_reset_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.password_reset_tokens (email, token, created_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3381 (class 0 OID 17271)
+-- Dependencies: 222
+-- Data for Name: personal_access_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.personal_access_tokens (id, tokenable_type, tokenable_id, name, token, abilities, last_used_at, expires_at, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3383 (class 0 OID 17283)
+-- Dependencies: 224
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.products (id, name, reference, price, weight, category, stock, created_at, updated_at, deleted_at) FROM stdin;
+1	Pandebono	PDN-21	1000	12	Panaderia	10	2024-02-19 19:59:15	2024-02-19 19:59:15	\N
+2	Pan queso	PQ-22	1500	21	Panaderia	15	2024-02-19 19:59:15	2024-02-19 19:59:15	\N
+4	Pan de Yuca	PY-27	2500	12	Panaderia	6	2024-02-19 21:31:09	2024-02-19 21:31:09	\N
+6	Perro	caliente	12	566	Panaderia	433	2024-02-19 21:43:14	2024-02-19 22:23:26	2024-02-19 22:23:26
+3	Almojabana	ALJ-23	1000	10	Panaderia	5	2024-02-19 19:59:15	2024-02-20 00:09:22	\N
+5	empanada	EP-78	12	566	Fritanga	0	2024-02-19 21:32:15	2024-02-20 01:34:30	\N
+\.
+
+
+--
+-- TOC entry 3385 (class 0 OID 17290)
+-- Dependencies: 226
+-- Data for Name: sells; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sells (id, product_id, amount, created_at, updated_at, deleted_at) FROM stdin;
+1	1	3	2024-02-19 22:34:02	2024-02-19 22:34:02	\N
+2	2	2	2024-02-19 22:34:02	2024-02-19 22:34:02	\N
+3	3	5	2024-02-19 22:34:02	2024-02-19 22:34:02	\N
+4	3	3	2024-02-20 00:09:22	2024-02-20 00:09:22	\N
+5	5	39	2024-02-20 01:33:31	2024-02-20 01:33:31	\N
+6	5	1	2024-02-20 01:34:30	2024-02-20 01:34:30	\N
+\.
+
+
+--
+-- TOC entry 3376 (class 0 OID 17241)
+-- Dependencies: 217
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, name, email, email_verified_at, password, remember_token, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3397 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
+
+
+--
+-- TOC entry 3398 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.migrations_id_seq', 6, true);
+
+
+--
+-- TOC entry 3399 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: personal_access_tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.personal_access_tokens_id_seq', 1, false);
+
+
+--
+-- TOC entry 3400 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.products_id_seq', 6, true);
+
+
+--
+-- TOC entry 3401 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: sells_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.sells_id_seq', 6, true);
+
+
+--
+-- TOC entry 3402 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+
+
+--
+-- TOC entry 3218 (class 2606 OID 17267)
+-- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3220 (class 2606 OID 17269)
+-- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_uuid_unique UNIQUE (uuid);
+
+
+--
+-- TOC entry 3210 (class 2606 OID 17239)
+-- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.migrations
+    ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3216 (class 2606 OID 17257)
+-- Name: password_reset_tokens password_reset_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.password_reset_tokens
+    ADD CONSTRAINT password_reset_tokens_pkey PRIMARY KEY (email);
+
+
+--
+-- TOC entry 3222 (class 2606 OID 17278)
+-- Name: personal_access_tokens personal_access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personal_access_tokens
+    ADD CONSTRAINT personal_access_tokens_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3224 (class 2606 OID 17281)
+-- Name: personal_access_tokens personal_access_tokens_token_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.personal_access_tokens
+    ADD CONSTRAINT personal_access_tokens_token_unique UNIQUE (token);
+
+
+--
+-- TOC entry 3227 (class 2606 OID 17288)
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3229 (class 2606 OID 17295)
+-- Name: sells sells_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sells
+    ADD CONSTRAINT sells_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3212 (class 2606 OID 17250)
+-- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_unique UNIQUE (email);
+
+
+--
+-- TOC entry 3214 (class 2606 OID 17248)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3225 (class 1259 OID 17279)
+-- Name: personal_access_tokens_tokenable_type_tokenable_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX personal_access_tokens_tokenable_type_tokenable_id_index ON public.personal_access_tokens USING btree (tokenable_type, tokenable_id);
+
+
+--
+-- TOC entry 3230 (class 2606 OID 17296)
+-- Name: sells sells_product_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sells
+    ADD CONSTRAINT sells_product_id_foreign FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+-- Completed on 2024-02-19 21:00:12
+
+--
+-- PostgreSQL database dump complete
+--
+

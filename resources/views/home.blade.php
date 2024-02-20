@@ -2,8 +2,35 @@
 
 @section('content')
 <div class="container">
-    <h1 class="mt-5">Sticky footer with fixed navbar</h1>
-    <p class="lead">Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code class="small">padding-top: 60px;</code> on the <code class="small">main &gt; .container</code>.</p>
-    <p>Back to  minus the navbar.</p>
+<div class="row  mt-2">
+  <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Producto con mayor Stock</h5>
+        <p class="card-text">{{ $productstorck->name }}: {{ $productstorck->stock }} </p>
+        
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Producto más vendido</h5>
+        <p class="card-text">{{ $sellsproduct->name }}: {{ $sellsproduct->total_sells }} </p>
+       
+      </div>
+    </div>
+  </div>
 </div>
+<div class="card mt-2">
+  <div class="card-body">
+    <h5 class="card-title">Productos de Vendidos</h5>
+    <div id="chartdiv" style="width: 100%; height: 400px;"></div>
+  </div>
+</div>
+</div>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="{{ asset('js/chart.js') }}" defer></script>
 @endsection
